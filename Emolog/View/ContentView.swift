@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var log = Log(id: 1, date: Date(), description: "", score: Score.five)
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+       LogDetail(log: $log)
     }
 }
 
@@ -24,3 +20,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+

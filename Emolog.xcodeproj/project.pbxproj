@@ -14,6 +14,9 @@
 		CD0B8C1629F25F940005ACF4 /* EmologTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C1529F25F940005ACF4 /* EmologTests.swift */; };
 		CD0B8C2029F25F940005ACF4 /* EmologUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C1F29F25F940005ACF4 /* EmologUITests.swift */; };
 		CD0B8C2229F25F940005ACF4 /* EmologUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C2129F25F940005ACF4 /* EmologUITestsLaunchTests.swift */; };
+		CD0B8C3129F260790005ACF4 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C3029F260790005ACF4 /* Log.swift */; };
+		CD0B8C3429F262CC0005ACF4 /* LogDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C3329F262CC0005ACF4 /* LogDetail.swift */; };
+		CD0B8C3629F27B6C0005ACF4 /* EmojiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		CD0B8C1B29F25F940005ACF4 /* EmologUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmologUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0B8C1F29F25F940005ACF4 /* EmologUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmologUITests.swift; sourceTree = "<group>"; };
 		CD0B8C2129F25F940005ACF4 /* EmologUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmologUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CD0B8C3029F260790005ACF4 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		CD0B8C3329F262CC0005ACF4 /* LogDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetail.swift; sourceTree = "<group>"; };
+		CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +100,9 @@
 		CD0B8C0329F25F930005ACF4 /* Emolog */ = {
 			isa = PBXGroup;
 			children = (
+				CD0B8C3229F261E10005ACF4 /* View */,
+				CD0B8C2F29F260560005ACF4 /* Model */,
 				CD0B8C0429F25F930005ACF4 /* EmologApp.swift */,
-				CD0B8C0629F25F930005ACF4 /* ContentView.swift */,
 				CD0B8C0829F25F940005ACF4 /* Assets.xcassets */,
 				CD0B8C0A29F25F940005ACF4 /* Preview Content */,
 			);
@@ -125,6 +132,24 @@
 				CD0B8C2129F25F940005ACF4 /* EmologUITestsLaunchTests.swift */,
 			);
 			path = EmologUITests;
+			sourceTree = "<group>";
+		};
+		CD0B8C2F29F260560005ACF4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CD0B8C3029F260790005ACF4 /* Log.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CD0B8C3229F261E10005ACF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CD0B8C0629F25F930005ACF4 /* ContentView.swift */,
+				CD0B8C3329F262CC0005ACF4 /* LogDetail.swift */,
+				CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +284,9 @@
 			files = (
 				CD0B8C0729F25F930005ACF4 /* ContentView.swift in Sources */,
 				CD0B8C0529F25F930005ACF4 /* EmologApp.swift in Sources */,
+				CD0B8C3629F27B6C0005ACF4 /* EmojiPicker.swift in Sources */,
+				CD0B8C3129F260790005ACF4 /* Log.swift in Sources */,
+				CD0B8C3429F262CC0005ACF4 /* LogDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
