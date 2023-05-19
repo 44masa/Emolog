@@ -32,7 +32,7 @@ struct LogDetail: View {
 }
 
 struct LogDetail_Previews: PreviewProvider {
-    @State static private var log = Log(id: 1, date: Date(), description: "なんかいい日だった", score: Score.five)
+    @State static private var log = Log(id: 1, dateComponents: Calendar.current.dateComponents([.year,.day, .month], from: Date()), description: "なんかいい日だった", score: Score.five)
     static var previews: some View {
         LogDetail(log: $log
         )

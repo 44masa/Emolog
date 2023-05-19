@@ -15,34 +15,29 @@ enum Score: Int, CaseIterable {
     case five = 5
     
     var emoji: String {
-            switch self {
-            case .one:
-                return "😖"
-            case .two:
-                return "😕"
-            case .three:
-                return "😐"
-            case .four:
-                return "🙂"
-            case .five:
-                return "😄"
-            }
+        switch self {
+        case .one:
+            return "😖"
+        case .two:
+            return "😕"
+        case .three:
+            return "😐"
+        case .four:
+            return "🙂"
+        case .five:
+            return "😄"
         }
+    }
 }
 
 
 struct Log: Identifiable {
     var id: Int
-    var date: Date
+    var dateComponents: DateComponents
     var description: String
     var score: Score
-    static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年M月d日"
-        return formatter
-    }()
     
     func getDateString() -> String {
-        return Self.dateFormatter.string(from: self.date)
+        return "\(dateComponents.year ?? 0)年\(dateComponents.month ?? 0)月\(dateComponents.day ?? 0)日"
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var log = Log(id: 1, date: Date(), description: "", score: Score.five)
+    @State var log = Log(id: 1, dateComponents: Calendar.current.dateComponents([.year,.day, .month], from: Date()), description: "", score: Score.five)
     
     var body: some View {
        LogDetail(log: $log)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD0740A52A16F3D100CD438D /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0740A42A16F3D100CD438D /* CalendarView.swift */; };
 		CD0B8C0529F25F930005ACF4 /* EmologApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C0429F25F930005ACF4 /* EmologApp.swift */; };
 		CD0B8C0729F25F930005ACF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C0629F25F930005ACF4 /* ContentView.swift */; };
 		CD0B8C0929F25F940005ACF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0B8C0829F25F940005ACF4 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 		CD0B8C3129F260790005ACF4 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C3029F260790005ACF4 /* Log.swift */; };
 		CD0B8C3429F262CC0005ACF4 /* LogDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C3329F262CC0005ACF4 /* LogDetail.swift */; };
 		CD0B8C3629F27B6C0005ACF4 /* EmojiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */; };
+		CD68EDE02A17251F00CB9944 /* CalendarElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD68EDDF2A17251F00CB9944 /* CalendarElement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CD0740A42A16F3D100CD438D /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		CD0B8C0129F25F930005ACF4 /* Emolog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emolog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0B8C0429F25F930005ACF4 /* EmologApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmologApp.swift; sourceTree = "<group>"; };
 		CD0B8C0629F25F930005ACF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -50,6 +53,7 @@
 		CD0B8C3029F260790005ACF4 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		CD0B8C3329F262CC0005ACF4 /* LogDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetail.swift; sourceTree = "<group>"; };
 		CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPicker.swift; sourceTree = "<group>"; };
+		CD68EDDF2A17251F00CB9944 /* CalendarElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				CD0B8C3029F260790005ACF4 /* Log.swift */,
+				CD68EDDF2A17251F00CB9944 /* CalendarElement.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 			children = (
 				CD0B8C0629F25F930005ACF4 /* ContentView.swift */,
 				CD0B8C3329F262CC0005ACF4 /* LogDetail.swift */,
+				CD0740A42A16F3D100CD438D /* CalendarView.swift */,
 				CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */,
 			);
 			path = View;
@@ -284,9 +290,11 @@
 			files = (
 				CD0B8C0729F25F930005ACF4 /* ContentView.swift in Sources */,
 				CD0B8C0529F25F930005ACF4 /* EmologApp.swift in Sources */,
+				CD0740A52A16F3D100CD438D /* CalendarView.swift in Sources */,
 				CD0B8C3629F27B6C0005ACF4 /* EmojiPicker.swift in Sources */,
 				CD0B8C3129F260790005ACF4 /* Log.swift in Sources */,
 				CD0B8C3429F262CC0005ACF4 /* LogDetail.swift in Sources */,
+				CD68EDE02A17251F00CB9944 /* CalendarElement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
