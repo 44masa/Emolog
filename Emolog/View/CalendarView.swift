@@ -8,67 +8,94 @@
 import SwiftUI
 
 struct CalendarView: View {
-    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 7)
-    let dateFormatter = DateFormatter()
-    init() {
-        self.dateFormatter.locale = Locale(identifier: "en_US")
-        dateFormatter.dateFormat = "MMMM"
+    private let  columns: [GridItem] = Array(repeating: .init(.flexible()), count: 7)
+    private let dateFormatter = DateFormatter()
+    private let service: LogService
+    
+    @State private var targetDate = Date()
+    @State private var logs: Array<LogService.Log> = []
+    @State private var navPath = NavigationPath()
+    @State var targetIndex = 0
+    
+    
+    init(service:LogService) {
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = "MMMM YYYY"
+        self.service = service
+        _logs = State(initialValue: self.service.getLogs(from: Date()))
     }
     
-    
-    @State
-    var months = [Date(), Calendar.current.date(byAdding: .month, value: 1, to: Date()),Calendar.current.date(byAdding: .month, value: 2, to: Date())]
-    
-    @State
-    var scrollIndex = 2
-    
     var body: some View {
-        VStack(){
-            Text("2023")
-            LazyVGrid(columns: columns, spacing: 20) {
-                Text("Sun")
-                Text("Mon")
-                Text("Tue")
-                Text("Wed")
-                Text("Thu")
-                Text("Fri")
-                Text("Sat")
-            }
-            .padding()
-            ScrollView(){
-                ForEach(months.indices, id:\.self) { monthIndex in
-                    VStack(){
-                        Text("\(dateFormatter.string(from: months[monthIndex]!))")
-                        LazyVGrid(columns:columns, spacing:20) {
-                            let elements = CalendarElement.getFlattenedDatesOfMonth(for: months[monthIndex]!)
-                            ForEach(elements.indices, id:\.self){ elementIndex in
-                                let element = elements[elementIndex]
-                                ZStack() {
-                                    if(element.dateComponents != nil) {
-                                        let opacity = element.log?.score.rawValue == nil ? 0 : Double((element.log?.score.rawValue)! / 5)
+        NavigationStack(path:$navPath) {
+            VStack(spacing: 10) {
+                HStack(spacing:20) {
+                    Button(action: {
+                        targetDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate)!
+                        logs = service.getLogs(from: targetDate)
+                    }, label: {
+                        Text("◀").foregroundColor(.black)
+                    })
+                    Text("\(dateFormatter.string(from: targetDate))").frame(minWidth: 200)
+                    Button(action: {
+                        targetDate = Calendar.current.date(byAdding: .month, value: 1, to: targetDate)!
+                        logs = service.getLogs(from: targetDate)
+                    }, label: {
+                        Text("▶").foregroundColor(.black)
+                    })
+                }.padding(.top, 8)
+                LazyVGrid(columns: columns, spacing: 20) {
+                    Text("Sun")
+                    Text("Mon")
+                    Text("Tue")
+                    Text("Wed")
+                    Text("Thu")
+                    Text("Fri")
+                    Text("Sat")
+                }.padding()
+                LazyVGrid(columns:columns, spacing:20) {
+                    ForEach(logs.indices, id:\.self){ i in
+                        Button {
+                            if(logs[i].dateComponents != nil) {
+                                navPath.append(i.self)
+                                targetIndex = i
+                            }
+                        } label: {
+                            ZStack {
+                                // dateComponentがある = 日付を表示する
+                                if(logs[i].dateComponents != nil) {
+                                    if(logs[i].id != nil) {
+                                        let opacity =  Double(logs[i].score?.rawValue ?? 0) / 5
                                         Rectangle()
-                                            .foregroundColor(.green.opacity(0))
+                                            .foregroundColor(.green).opacity(opacity)
                                             .aspectRatio(1, contentMode: .fit)
-                                        Text("\(element.dateComponents?.day ?? 0)").foregroundColor(.gray)
-                                    }
-                                }.onAppear{
-                                    if(elementIndex + 1 == elements.count && monthIndex + 1 == months.count) {
-                                        scrollIndex = scrollIndex + 1
-                                        months.append(Calendar.current.date(byAdding: .month, value: scrollIndex, to: Date()))
+                                            .shadow(color: .gray, radius: 1)
+                                        Text("\(logs[i].dateComponents!.day ?? 0)").foregroundColor(.gray)
+                                    } else {
+                                        Rectangle()
+                                            .foregroundColor(.white)
+                                            .aspectRatio(1, contentMode: .fit)
+                                            .shadow(color: .gray, radius: 1)
+                                        Text("\(logs[i].dateComponents!.day ?? 0)").foregroundColor(.gray)
                                     }
                                 }
                             }
-                        }.padding()
+                        }
                     }
                 }
+                .padding()
+                Spacer()
+            }.navigationDestination(for: Int.self) { i in
+                EditLogView(log: $logs[targetIndex])
+                
             }
+            
         }
     }
 }
 
 struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarView()
+        CalendarView(service: LogService(repository: LogRepository()))
     }
 }
 
