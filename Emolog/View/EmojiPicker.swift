@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct EmojiPicker: View {
-    @Binding var score: LogService.Score?
+    @Binding var score: EmoLog.Score?
     @Binding var isVisible: Bool
     
     var body: some View {
@@ -25,7 +25,7 @@ struct EmojiPicker: View {
                     .font(.headline)
                     .padding()
                 HStack {
-                    ForEach(LogService.Score.allCases, id: \.self) { option in
+                    ForEach(EmoLog.Score.allCases, id: \.self) { option in
                         Button(action: {
                             score = option
                             isVisible = false
@@ -51,9 +51,10 @@ struct EmojiPicker: View {
 }
 
 struct EmojiPicker_Previews: PreviewProvider {
-    @State static private var score: Optional<LogService.Score> = LogService.Score.five
+    @State static private var score:  EmoLog.Score? = EmoLog.Score.five
+    @State static private var isVisible = true
     
     static var previews: some View {
-        EmojiPicker(score: $score, isVisible: .constant(true))
+        EmojiPicker(score: $score, isVisible: $isVisible)
     }
 }

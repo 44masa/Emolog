@@ -5,40 +5,49 @@
 //  Created by 荒武禎将 on 2023/05/19.
 //
 
+import CoreData
 import SwiftUI
 
+
+
 struct CalendarView: View {
-    private let  columns: [GridItem] = Array(repeating: .init(.flexible()), count: 7)
+    struct EmoLogViewModel {
+        public var id: UUID?
+        public var memo: String?
+        public var dateComponents: DateComponents?
+        public var score: EmoLog.Score?
+    }
+    static private let calendar = Calendar.current
+    
+    private let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 7)
     private let dateFormatter = DateFormatter()
-    private let service: LogService
+    
+    @Environment(\.managedObjectContext) private var moc
+    @FetchRequest(entity: EmoLog.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \EmoLog.date, ascending: true)], predicate: nil, animation: .default) var rawLogs: FetchedResults<EmoLog>
     
     @State private var targetDate = Date()
-    @State private var logs: Array<LogService.Log> = []
-    @State private var navPath = NavigationPath()
-    @State var targetIndex = 0
+    func getTargetDateDateComponentsList(targetDate: Date) -> [DateComponents?] {
+        return getDatesOfMonth(for: targetDate)
+    }
     
-    
-    init(service:LogService) {
+    init(emoLogs: [EmoLogViewModel] = []) {
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateFormat = "MMMM YYYY"
-        self.service = service
-        _logs = State(initialValue: self.service.getLogs(from: Date()))
     }
     
     var body: some View {
-        NavigationStack(path:$navPath) {
+        NavigationView() {
             VStack(spacing: 10) {
                 HStack(spacing:20) {
                     Button(action: {
                         targetDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate)!
-                        logs = service.getLogs(from: targetDate)
                     }, label: {
                         Text("◀").foregroundColor(.black)
                     })
                     Text("\(dateFormatter.string(from: targetDate))").frame(minWidth: 200)
                     Button(action: {
                         targetDate = Calendar.current.date(byAdding: .month, value: 1, to: targetDate)!
-                        logs = service.getLogs(from: targetDate)
+                        //emoLogs = getEmoLogs()
                     }, label: {
                         Text("▶").foregroundColor(.black)
                     })
@@ -53,49 +62,49 @@ struct CalendarView: View {
                     Text("Sat")
                 }.padding()
                 LazyVGrid(columns:columns, spacing:20) {
-                    ForEach(logs.indices, id:\.self){ i in
-                        Button {
-                            if(logs[i].dateComponents != nil) {
-                                navPath.append(i.self)
-                                targetIndex = i
-                            }
-                        } label: {
-                            ZStack {
-                                // dateComponentがある = 日付を表示する
-                                if(logs[i].dateComponents != nil) {
-                                    if(logs[i].id != nil) {
-                                        let opacity =  Double(logs[i].score?.rawValue ?? 0) / 5
+                    let targetDateDateComponentsList = getTargetDateDateComponentsList(targetDate: targetDate)
+                    ForEach(targetDateDateComponentsList.indices, id:\.self){ i in
+                        if let targetDateDateComponents = targetDateDateComponentsList[i] {
+                            if let matchedLog = rawLogs.first(where: { rawLog in
+                                let rawLogDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: rawLog.date!)
+                                return targetDateDateComponents.year == rawLogDateComponents.year && targetDateDateComponents.month  == rawLogDateComponents.month && targetDateDateComponents.day == rawLogDateComponents.day
+                            }) {
+                                NavigationLink (destination: EditLogView(emoLogId: matchedLog.id!)) {
+                                    ZStack{
+                                        let opacity =  Double(matchedLog.score ) / 5
                                         Rectangle()
                                             .foregroundColor(.green).opacity(opacity)
                                             .aspectRatio(1, contentMode: .fit)
                                             .shadow(color: .gray, radius: 1)
-                                        Text("\(logs[i].dateComponents!.day ?? 0)").foregroundColor(.gray)
-                                    } else {
+                                        Text("\(matchedLog.dateComponents?.day ?? 0)").foregroundColor(.gray)
+                                    }
+                                }
+                            } else {
+                                NavigationLink (destination: Text("a")) {
+                                    ZStack{
                                         Rectangle()
                                             .foregroundColor(.white)
                                             .aspectRatio(1, contentMode: .fit)
                                             .shadow(color: .gray, radius: 1)
-                                        Text("\(logs[i].dateComponents!.day ?? 0)").foregroundColor(.gray)
+                                        Text("\(targetDateDateComponentsList[i]!.day!)").foregroundColor(.gray)
                                     }
                                 }
                             }
+                        } else {
+                            Text("")
                         }
                     }
                 }
                 .padding()
                 Spacer()
-            }.navigationDestination(for: Int.self) { i in
-                EditLogView(log: $logs[targetIndex])
-                
             }
-            
         }
     }
 }
 
 struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarView(service: LogService(repository: LogRepository()))
+        CalendarView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
 

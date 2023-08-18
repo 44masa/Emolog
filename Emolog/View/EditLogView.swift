@@ -8,42 +8,55 @@
 import SwiftUI
 
 struct EditLogView: View {
+    @Environment(\.managedObjectContext) private var context
     @State private var isEmojiPickerVisible = false
-    @Binding var log: LogService.Log
+    let emoLogId: UUID
+    @FetchRequest var results: FetchedResults<EmoLog>
+        init(emoLogId: UUID) {
+            self.emoLogId = emoLogId
+            
+            let predicate = NSPredicate(format: "id == %@", emoLogId.uuidString)
+            
+            _results = FetchRequest<EmoLog>(
+                entity: EmoLog.entity(),
+                sortDescriptors: [],
+                predicate: predicate
+            )
+        }
     
-    init(log: Binding<LogService.Log>) {
-        _log = log
-        
-        if(log.id == nil) {
-            _log.wrappedValue.id = UUID()
-            _log.wrappedValue.description = ""
-        }
-    }
+    @State var memo = ""
+    @State var score: EmoLog.Score? = nil
+    
     var body: some View {
-        VStack(alignment: .center){
-            VStack{
-                Text("\(getFormattedDateString(for: log.dateComponents! ))のあなたのムード")
-                    .font(.title2)
+        if let target = results.first {
+            VStack(alignment: .center){
+                VStack{
+                    Text("\(getFormattedDateString(for: target.dateComponents!))のあなたのムード")
+                        .font(.title2)
+                        .padding(.bottom, 30)
+                    EmojiPicker(score: $score, isVisible: $isEmojiPickerVisible)
+                        .padding(5.0)
+                }
+                Divider()
                     .padding(.bottom, 30)
-                EmojiPicker(score: $log.score, isVisible: $isEmojiPickerVisible)
-                    .padding(5.0)
+                Text("メモ")
+                    .font(.title2)
+                VStack{
+                    TextField("今日はこんなことがありました...", text: $memo)
+                }
             }
-            Divider()
-                .padding(.bottom, 30)
-            Text("メモ")
-                .font(.title2)
-                
-            VStack{
-                TextField("今日はこんなことがありました...", text: $log.description)
+            .padding(10.0).onAppear {
+                memo = target.memo!
+                score = target.scoreEnum!
             }
+        } else {
+            EmptyView()
         }
-        .padding(10.0)
     }
 }
 
 struct EditLogView_Previews: PreviewProvider {
-    @State static var log = LogService.Log(dateComponents: Calendar.current.dateComponents([.year, .month, .day], from: Date()), description: "今日もいい一日だった", score: LogService.Score.five)
     static var previews: some View {
-        EditLogView(log: $log)
+        EditLogView(emoLogId: UUID())
     }
 }

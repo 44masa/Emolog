@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct EmologApp: App {
+    let persistenceController = PersistenceController.shared
+    @Environment(\.scenePhase) var scenePhase
     var body: some Scene {
         WindowGroup {
-            CalendarView(service: LogService(repository: LogRepository()))
+            CalendarView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onChange(of: scenePhase) { _ in
+                    persistenceController.save()
+                }
         }
     }
 }

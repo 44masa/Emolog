@@ -16,11 +16,12 @@
 		CD0B8C2229F25F940005ACF4 /* EmologUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C2129F25F940005ACF4 /* EmologUITestsLaunchTests.swift */; };
 		CD0B8C3629F27B6C0005ACF4 /* EmojiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */; };
 		CD398E282A455A6B0086960C /* LogRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD398E272A455A6B0086960C /* LogRepository.swift */; };
-		CD398E2A2A455EF50086960C /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD398E292A455EF50086960C /* LogService.swift */; };
-		CD398E2E2A457C410086960C /* NewLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD398E2D2A457C410086960C /* NewLogView.swift */; };
-		CD398E302A4581200086960C /* CreateLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD398E2F2A4581200086960C /* CreateLogView.swift */; };
 		CD74B9A62A677A24008C7FA8 /* CalendarUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74B9A52A677A24008C7FA8 /* CalendarUtil.swift */; };
 		CD74B9A82A67B9A2008C7FA8 /* EditLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74B9A72A67B9A2008C7FA8 /* EditLogView.swift */; };
+		CDAAC6CE2A8F08BD00E87B2D /* EmoLog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC6CC2A8F08BD00E87B2D /* EmoLog.xcdatamodeld */; };
+		CDAAC6D22A8F280700E87B2D /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC6D12A8F280700E87B2D /* PersistenceController.swift */; };
+		CDAAC6D52A8F2D0900E87B2D /* EmoLog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC6D32A8F2D0900E87B2D /* EmoLog+CoreDataClass.swift */; };
+		CDAAC6D62A8F2D0900E87B2D /* EmoLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC6D42A8F2D0900E87B2D /* EmoLog+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,11 +54,12 @@
 		CD0B8C2129F25F940005ACF4 /* EmologUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmologUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPicker.swift; sourceTree = "<group>"; };
 		CD398E272A455A6B0086960C /* LogRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogRepository.swift; sourceTree = "<group>"; };
-		CD398E292A455EF50086960C /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
-		CD398E2D2A457C410086960C /* NewLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLogView.swift; sourceTree = "<group>"; };
-		CD398E2F2A4581200086960C /* CreateLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLogView.swift; sourceTree = "<group>"; };
 		CD74B9A52A677A24008C7FA8 /* CalendarUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUtil.swift; sourceTree = "<group>"; };
 		CD74B9A72A67B9A2008C7FA8 /* EditLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLogView.swift; sourceTree = "<group>"; };
+		CDAAC6CD2A8F08BD00E87B2D /* EmoLog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmoLog.xcdatamodel; sourceTree = "<group>"; };
+		CDAAC6D12A8F280700E87B2D /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		CDAAC6D32A8F2D0900E87B2D /* EmoLog+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmoLog+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CDAAC6D42A8F2D0900E87B2D /* EmoLog+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmoLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				CD74B9A42A677A03008C7FA8 /* Util */,
-				CD398E262A455A510086960C /* Service */,
 				CD398E252A455A450086960C /* Repository */,
 				CD0B8C3229F261E10005ACF4 /* View */,
 				CD0B8C2F29F260560005ACF4 /* Model */,
@@ -148,6 +149,10 @@
 		CD0B8C2F29F260560005ACF4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CDAAC6D42A8F2D0900E87B2D /* EmoLog+CoreDataProperties.swift */,
+				CDAAC6D32A8F2D0900E87B2D /* EmoLog+CoreDataClass.swift */,
+				CDAAC6CC2A8F08BD00E87B2D /* EmoLog.xcdatamodeld */,
+				CDAAC6D12A8F280700E87B2D /* PersistenceController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -157,8 +162,6 @@
 			children = (
 				CD0740A42A16F3D100CD438D /* CalendarView.swift */,
 				CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */,
-				CD398E2D2A457C410086960C /* NewLogView.swift */,
-				CD398E2F2A4581200086960C /* CreateLogView.swift */,
 				CD74B9A72A67B9A2008C7FA8 /* EditLogView.swift */,
 			);
 			path = View;
@@ -170,14 +173,6 @@
 				CD398E272A455A6B0086960C /* LogRepository.swift */,
 			);
 			path = Repository;
-			sourceTree = "<group>";
-		};
-		CD398E262A455A510086960C /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				CD398E292A455EF50086960C /* LogService.swift */,
-			);
-			path = Service;
 			sourceTree = "<group>";
 		};
 		CD74B9A42A677A03008C7FA8 /* Util */ = {
@@ -320,13 +315,14 @@
 			files = (
 				CD398E282A455A6B0086960C /* LogRepository.swift in Sources */,
 				CD0B8C0529F25F930005ACF4 /* EmologApp.swift in Sources */,
+				CDAAC6D52A8F2D0900E87B2D /* EmoLog+CoreDataClass.swift in Sources */,
 				CD0740A52A16F3D100CD438D /* CalendarView.swift in Sources */,
-				CD398E2E2A457C410086960C /* NewLogView.swift in Sources */,
-				CD398E2A2A455EF50086960C /* LogService.swift in Sources */,
+				CDAAC6D62A8F2D0900E87B2D /* EmoLog+CoreDataProperties.swift in Sources */,
 				CD0B8C3629F27B6C0005ACF4 /* EmojiPicker.swift in Sources */,
-				CD398E302A4581200086960C /* CreateLogView.swift in Sources */,
 				CD74B9A62A677A24008C7FA8 /* CalendarUtil.swift in Sources */,
 				CD74B9A82A67B9A2008C7FA8 /* EditLogView.swift in Sources */,
+				CDAAC6CE2A8F08BD00E87B2D /* EmoLog.xcdatamodeld in Sources */,
+				CDAAC6D22A8F280700E87B2D /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +641,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CDAAC6CC2A8F08BD00E87B2D /* EmoLog.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CDAAC6CD2A8F08BD00E87B2D /* EmoLog.xcdatamodel */,
+			);
+			currentVersion = CDAAC6CD2A8F08BD00E87B2D /* EmoLog.xcdatamodel */;
+			path = EmoLog.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CD0B8BF929F25F930005ACF4 /* Project object */;
 }

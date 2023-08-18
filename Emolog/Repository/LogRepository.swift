@@ -5,16 +5,21 @@
 //  Created by 荒武禎将 on 2023/06/23.
 //
 
-import Foundation
+import CoreData
 
 struct LogRepository {
-    struct Log {
-        var id: String
-        var date: Date
-        var description: String
-        var score: Int
-    }
-    func getLogs(from: Date, to:Date) -> Array<Log> {
-        return [Log(id: UUID().uuidString, date: Date(), description: "良い一日だった", score: 5)]
-    }
+//    let context: NSManagedObjectContext
+//    
+//    func getLogs(from startDate: Date, to endDate: Date) -> [EmoLog] {
+//        let fetchRequest: NSFetchRequest<EmoLog> = EmoLog.fetchRequest()
+//        fetchRequest.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", startDate as NSDate, endDate as NSDate)
+//        
+//        do {
+//            let fetchedLogs = try context.fetch(fetchRequest)
+//            return fetchedLogs
+//        } catch {
+//            print("Failed to fetch logs: \(error)")
+//            return []
+//        }
+//    }
 }

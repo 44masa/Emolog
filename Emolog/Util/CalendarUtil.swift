@@ -56,7 +56,7 @@ func getAllDates(ofMonthFrom date: Date) -> [Date] {
     }
 }
 
-func getDatesOfMonth(for date:Date) -> Array<DateComponents?>{
+func getDatesOfMonth(for date:Date) -> [DateComponents?]{
     var result = Array<Array<Date?>>()
     for _ in 1 ... numberOfWeeksInMonth(for: date) {
         result.append(Array([nil,nil,nil,nil,nil,nil,nil]))
