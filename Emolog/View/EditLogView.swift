@@ -8,47 +8,72 @@
 import SwiftUI
 
 struct EditLogView: View {
-    @Environment(\.managedObjectContext) private var context
-    @State private var isEmojiPickerVisible = false
     let emoLogId: UUID
-    @FetchRequest var results: FetchedResults<EmoLog>
-        init(emoLogId: UUID) {
-            self.emoLogId = emoLogId
-            
-            let predicate = NSPredicate(format: "id == %@", emoLogId.uuidString)
-            
-            _results = FetchRequest<EmoLog>(
-                entity: EmoLog.entity(),
-                sortDescriptors: [],
-                predicate: predicate
-            )
-        }
     
-    @State var memo = ""
-    @State var score: EmoLog.Score? = nil
+    @Environment(\.managedObjectContext) private var managedObjectContext
+    
+    @State private var isEmojiPickerVisible = false
+    @State private var memo = ""
+    @State private var score: EmoLog.Score? = nil
+    
+    @FetchRequest var results: FetchedResults<EmoLog>
+    
+    init(emoLogId: UUID) {
+        self.emoLogId = emoLogId
+        
+        let predicate = NSPredicate(format: "id == %@", emoLogId.uuidString)
+        
+        _results = FetchRequest<EmoLog>(
+            entity: EmoLog.entity(),
+            sortDescriptors: [],
+            predicate: predicate
+        )
+    }
+    
+    func save(to emoLog: EmoLog) {
+        emoLog.memo = memo
+        emoLog.score = Int16(score?.rawValue ?? 0)
+        
+        do {
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    
     
     var body: some View {
         if let target = results.first {
-            VStack(alignment: .center){
-                VStack{
-                    Text("\(getFormattedDateString(for: target.dateComponents!))のあなたのムード")
-                        .font(.title2)
+            ScrollView {
+                VStack(alignment: .center){
+                    VStack{
+                        Text("\(getFormattedDateString(for: target.dateComponents))のあなたのムード")
+                            .font(.title2)
+                            .padding(.bottom, 30)
+                        EmojiPicker(score: $score, isVisible: $isEmojiPickerVisible)
+                            .padding(5.0).onDisappear {
+                                save(to: target)
+                            }
+                    }.padding(.top, 30)
+                    Divider()
                         .padding(.bottom, 30)
-                    EmojiPicker(score: $score, isVisible: $isEmojiPickerVisible)
-                        .padding(5.0)
+                    Text("メモ")
+                        .font(.title2)
+                    VStack{
+                        TextField("今日はこんなことがありました...", text: $memo)
+                    }
+                    Spacer()
+                    
                 }
-                Divider()
-                    .padding(.bottom, 30)
-                Text("メモ")
-                    .font(.title2)
-                VStack{
-                    TextField("今日はこんなことがありました...", text: $memo)
+                .padding(10.0).onAppear {
+                    memo = target.memo ?? ""
+                    score = target.scoreEnum!
+                }.onDisappear {
+                    save(to: target)
                 }
             }
-            .padding(10.0).onAppear {
-                memo = target.memo!
-                score = target.scoreEnum!
-            }
+            
         } else {
             EmptyView()
         }
@@ -56,7 +81,11 @@ struct EditLogView: View {
 }
 
 struct EditLogView_Previews: PreviewProvider {
+    static var mockEmoLogId: UUID {
+        return PersistenceController.addMockEmoLog(to: PersistenceController.preview.container.viewContext)
+    }
+    
     static var previews: some View {
-        EditLogView(emoLogId: UUID())
+        EditLogView(emoLogId: mockEmoLogId).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

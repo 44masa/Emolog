@@ -22,6 +22,7 @@
 		CDAAC6D22A8F280700E87B2D /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC6D12A8F280700E87B2D /* PersistenceController.swift */; };
 		CDAAC6D52A8F2D0900E87B2D /* EmoLog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC6D32A8F2D0900E87B2D /* EmoLog+CoreDataClass.swift */; };
 		CDAAC6D62A8F2D0900E87B2D /* EmoLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC6D42A8F2D0900E87B2D /* EmoLog+CoreDataProperties.swift */; };
+		CDBB6DEF2ABD14ED00E5606D /* CreateLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBB6DEE2ABD14ED00E5606D /* CreateLogView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,12 +55,14 @@
 		CD0B8C2129F25F940005ACF4 /* EmologUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmologUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPicker.swift; sourceTree = "<group>"; };
 		CD398E272A455A6B0086960C /* LogRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogRepository.swift; sourceTree = "<group>"; };
+		CD72C7492AE25013005C8A8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CD74B9A52A677A24008C7FA8 /* CalendarUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUtil.swift; sourceTree = "<group>"; };
 		CD74B9A72A67B9A2008C7FA8 /* EditLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLogView.swift; sourceTree = "<group>"; };
 		CDAAC6CD2A8F08BD00E87B2D /* EmoLog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmoLog.xcdatamodel; sourceTree = "<group>"; };
 		CDAAC6D12A8F280700E87B2D /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		CDAAC6D32A8F2D0900E87B2D /* EmoLog+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmoLog+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CDAAC6D42A8F2D0900E87B2D /* EmoLog+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmoLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CDBB6DEE2ABD14ED00E5606D /* CreateLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,7 @@
 		CD0B8C0329F25F930005ACF4 /* Emolog */ = {
 			isa = PBXGroup;
 			children = (
+				CD72C7492AE25013005C8A8E /* Info.plist */,
 				CD74B9A42A677A03008C7FA8 /* Util */,
 				CD398E252A455A450086960C /* Repository */,
 				CD0B8C3229F261E10005ACF4 /* View */,
@@ -163,6 +167,7 @@
 				CD0740A42A16F3D100CD438D /* CalendarView.swift */,
 				CD0B8C3529F27B6C0005ACF4 /* EmojiPicker.swift */,
 				CD74B9A72A67B9A2008C7FA8 /* EditLogView.swift */,
+				CDBB6DEE2ABD14ED00E5606D /* CreateLogView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -247,7 +252,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					CD0B8C0029F25F930005ACF4 = {
 						CreatedOnToolsVersion = 14.3;
@@ -318,6 +323,7 @@
 				CDAAC6D52A8F2D0900E87B2D /* EmoLog+CoreDataClass.swift in Sources */,
 				CD0740A52A16F3D100CD438D /* CalendarView.swift in Sources */,
 				CDAAC6D62A8F2D0900E87B2D /* EmoLog+CoreDataProperties.swift in Sources */,
+				CDBB6DEF2ABD14ED00E5606D /* CreateLogView.swift in Sources */,
 				CD0B8C3629F27B6C0005ACF4 /* EmojiPicker.swift in Sources */,
 				CD74B9A62A677A24008C7FA8 /* CalendarUtil.swift in Sources */,
 				CD74B9A82A67B9A2008C7FA8 /* EditLogView.swift in Sources */,
@@ -395,6 +401,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -455,6 +462,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -481,19 +489,23 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Emolog/Preview Content\"";
+				DEVELOPMENT_TEAM = RUX68LZS8U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Emolog/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = yoshimasa.Emolog;
+				PRODUCT_BUNDLE_IDENTIFIER = com.44masa.emoLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -509,19 +521,23 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Emolog/Preview Content\"";
+				DEVELOPMENT_TEAM = RUX68LZS8U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Emolog/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = yoshimasa.Emolog;
+				PRODUCT_BUNDLE_IDENTIFIER = com.44masa.emoLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -26,6 +26,7 @@ extension EmoLog {
 extension EmoLog : Identifiable {
     
     enum Score: Int, CaseIterable {
+        case unknown = 0
         case one = 1
         case two = 2
         case three = 3
@@ -34,6 +35,8 @@ extension EmoLog : Identifiable {
         
         var emoji: String {
             switch self {
+            case .unknown:
+                return "?"
             case .one:
                 return "😖"
             case .two:
@@ -70,6 +73,6 @@ extension EmoLog : Identifiable {
             return nil
         }
         
-       return "\(dateComponents.year!)年\(dateComponents.month!)月\(dateComponents.day!)日"
+        return "\(dateComponents.year!)年\(dateComponents.month!)月\(dateComponents.day!)日"
     }
 }

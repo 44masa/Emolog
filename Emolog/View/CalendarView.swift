@@ -37,68 +37,82 @@ struct CalendarView: View {
     
     var body: some View {
         NavigationView() {
-            VStack(spacing: 10) {
-                HStack(spacing:20) {
-                    Button(action: {
-                        targetDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate)!
-                    }, label: {
-                        Text("◀").foregroundColor(.black)
-                    })
-                    Text("\(dateFormatter.string(from: targetDate))").frame(minWidth: 200)
-                    Button(action: {
-                        targetDate = Calendar.current.date(byAdding: .month, value: 1, to: targetDate)!
-                        //emoLogs = getEmoLogs()
-                    }, label: {
-                        Text("▶").foregroundColor(.black)
-                    })
-                }.padding(.top, 8)
-                LazyVGrid(columns: columns, spacing: 20) {
-                    Text("Sun")
-                    Text("Mon")
-                    Text("Tue")
-                    Text("Wed")
-                    Text("Thu")
-                    Text("Fri")
-                    Text("Sat")
-                }.padding()
-                LazyVGrid(columns:columns, spacing:20) {
-                    let targetDateDateComponentsList = getTargetDateDateComponentsList(targetDate: targetDate)
-                    ForEach(targetDateDateComponentsList.indices, id:\.self){ i in
-                        if let targetDateDateComponents = targetDateDateComponentsList[i] {
-                            if let matchedLog = rawLogs.first(where: { rawLog in
-                                let rawLogDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: rawLog.date!)
-                                return targetDateDateComponents.year == rawLogDateComponents.year && targetDateDateComponents.month  == rawLogDateComponents.month && targetDateDateComponents.day == rawLogDateComponents.day
-                            }) {
-                                NavigationLink (destination: EditLogView(emoLogId: matchedLog.id!)) {
-                                    ZStack{
-                                        let opacity =  Double(matchedLog.score ) / 5
-                                        Rectangle()
-                                            .foregroundColor(.green).opacity(opacity)
-                                            .aspectRatio(1, contentMode: .fit)
-                                            .shadow(color: .gray, radius: 1)
-                                        Text("\(matchedLog.dateComponents?.day ?? 0)").foregroundColor(.gray)
+            ScrollView {
+                VStack(spacing: 10) {
+                    HStack(spacing:20) {
+                        Button(action: {
+                            targetDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate)!
+                        }, label: {
+                            Text("◀").foregroundColor(.black)
+                        })
+                        Text("\(dateFormatter.string(from: targetDate))").frame(minWidth: 200)
+                        Button(action: {
+                            targetDate = Calendar.current.date(byAdding: .month, value: 1, to: targetDate)!
+                            //emoLogs = getEmoLogs()
+                        }, label: {
+                            Text("▶").foregroundColor(.black)
+                        })
+                    }.padding(.top, 8)
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        Text("Sun")
+                        Text("Mon")
+                        Text("Tue")
+                        Text("Wed")
+                        Text("Thu")
+                        Text("Fri")
+                        Text("Sat")
+                    }.padding()
+                    LazyVGrid(columns:columns, spacing:20) {
+                        let targetDateDateComponentsList = getTargetDateDateComponentsList(targetDate: targetDate)
+                        ForEach(targetDateDateComponentsList.indices, id:\.self){ i in
+                            if let targetDateDateComponents = targetDateDateComponentsList[i] {
+                                if let matchedLog = rawLogs.first(where: { rawLog in
+                                    let rawLogDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: rawLog.date!)
+                                    return targetDateDateComponents.year == rawLogDateComponents.year && targetDateDateComponents.month  == rawLogDateComponents.month && targetDateDateComponents.day == rawLogDateComponents.day
+                                }) {
+                                    NavigationLink (destination: EditLogView(emoLogId: matchedLog.id!)) {
+                                        ZStack{
+                                            
+                                            if(matchedLog.scoreEnum == EmoLog.Score.unknown) {
+                                                Rectangle()
+                                                    .foregroundColor(.white)
+                                                    .aspectRatio(1, contentMode: .fit)
+                                                    .shadow(color: .gray, radius: 1)
+                                                Text("\(matchedLog.dateComponents?.day ?? 0)").foregroundColor(.gray)
+                                            } else {
+                                                let opacity =  Double(matchedLog.score ) / 5
+                                                Rectangle()
+                                                    .foregroundColor(.green).opacity(opacity)
+                                                    .aspectRatio(1, contentMode: .fit)
+                                                    .shadow(color: .gray, radius: 1)
+                                                Text("\(matchedLog.dateComponents?.day ?? 0)").foregroundColor(.gray)
+                                            }
+                                            
+                                        }
+                                    }
+                                } else {
+                                    NavigationLink (destination: CreateLogView(targetDateComponents: targetDateDateComponents)) {
+                                        ZStack{
+                                            Rectangle()
+                                                .foregroundColor(.white)
+                                                .aspectRatio(1, contentMode: .fit)
+                                                .shadow(color: .gray, radius: 1)
+                                            Text("\(targetDateDateComponentsList[i]!.day!)").foregroundColor(.gray)
+                                        }
                                     }
                                 }
                             } else {
-                                NavigationLink (destination: Text("a")) {
-                                    ZStack{
-                                        Rectangle()
-                                            .foregroundColor(.white)
-                                            .aspectRatio(1, contentMode: .fit)
-                                            .shadow(color: .gray, radius: 1)
-                                        Text("\(targetDateDateComponentsList[i]!.day!)").foregroundColor(.gray)
-                                    }
-                                }
+                                // 空のマス
+                                Text("")
                             }
-                        } else {
-                            Text("")
                         }
                     }
+                    .padding()
+                    Spacer()
                 }
-                .padding()
-                Spacer()
+                
             }
-        }
+        }.navigationViewStyle(.stack)
     }
 }
 

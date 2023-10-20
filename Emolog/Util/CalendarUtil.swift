@@ -74,8 +74,11 @@ func getDatesOfMonth(for date:Date) -> [DateComponents?]{
     }
 }
 
-func getFormattedDateString(for components: DateComponents) -> String {
-    let date = calendar.date(from: components)
+func getFormattedDateString(for components: DateComponents?) -> String {
+    if(components == nil){
+        return ""
+    }
+    let date = calendar.date(from: components!)
     formatter.dateFormat = "yyyy年MM月dd日"
     return formatter.string(from: date!)
 }

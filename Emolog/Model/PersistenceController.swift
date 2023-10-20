@@ -27,6 +27,23 @@ struct PersistenceController {
         return controller
     }()
     
+    static func addMockEmoLog(to context: NSManagedObjectContext) -> UUID {
+        let mockLog = EmoLog(context: context)
+        mockLog.id = UUID()
+        mockLog.memo = "test"
+        mockLog.score = Int16(EmoLog.Score.five.rawValue)
+        mockLog.date = Date()
+        
+        
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save mock data: \(error)")
+        }
+        
+        return mockLog.id!
+    }
+    
     // An initializer to load Core Data, optionally able
     // to use an in-memory store.
     init(inMemory: Bool = false) {

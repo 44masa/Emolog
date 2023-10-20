@@ -25,7 +25,9 @@ struct EmojiPicker: View {
                     .font(.headline)
                     .padding()
                 HStack {
-                    ForEach(EmoLog.Score.allCases, id: \.self) { option in
+                    ForEach(EmoLog.Score.allCases.filter {val in
+                        return val != EmoLog.Score.unknown
+                    }, id: \.self) { option in
                         Button(action: {
                             score = option
                             isVisible = false
