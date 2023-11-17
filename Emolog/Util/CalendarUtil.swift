@@ -48,37 +48,46 @@ func numberOfWeeksInMonth(for date: Date) -> Int {
 }
 
 func getAllDates(ofMonthFrom date: Date) -> [Date] {
-    let range = calendar.range(of: .day, in: .month, for: date)
-    let startDayOfMonth = calendar.date(from: DateComponents(year: calendar.component(.year, from: date), month: calendar.component(.month, from: date), day: range?.lowerBound))!
+    guard let range = calendar.range(of: .day, in: .month, for: date),
+          let startDayOfMonth = calendar.date(from: DateComponents(year: calendar.component(.year, from: date), month: calendar.component(.month, from: date), day: range.lowerBound)) else {
+        return []
+    }
     
-    return (0..<(range?.count ?? 0)).compactMap {
+    return (0..<range.count).compactMap {
         calendar.date(byAdding: .day, value: $0, to: startDayOfMonth)
     }
 }
 
-func getDatesOfMonth(for date:Date) -> [DateComponents?]{
+func getDatesOfMonth(for date: Date) -> [DateComponents?] {
     var result = Array<Array<Date?>>()
-    for _ in 1 ... numberOfWeeksInMonth(for: date) {
-        result.append(Array([nil,nil,nil,nil,nil,nil,nil]))
+    let numberOfWeeks = numberOfWeeksInMonth(for: date)
+    
+    for _ in 1...numberOfWeeks {
+        result.append(Array(repeating: nil, count: 7))
     }
     
     for el in getAllDates(ofMonthFrom: date) {
-        let components = calendar.dateComponents([.year, .month,.day, .weekOfMonth, .weekday],from:el)
-        result[components.weekOfMonth!-1][components.weekday!-1] = el
+        let components = calendar.dateComponents([.year, .month, .day, .weekOfMonth, .weekday], from: el)
+        if let weekOfMonth = components.weekOfMonth, let weekday = components.weekday {
+            result[weekOfMonth - 1][weekday - 1] = el
+        }
     }
     
-    return result.flatMap{
-        $0.map{ el in
-          return el != nil ? calendar.dateComponents([.year, .month, .day], from: el!) : nil
+    return result.flatMap {
+        $0.map { el in
+            guard let date = el else { return nil }
+            return calendar.dateComponents([.year, .month, .day], from: date)
         }
     }
 }
 
+
 func getFormattedDateString(for components: DateComponents?) -> String {
-    if(components == nil){
+    guard let components = components,
+          let date = calendar.date(from: components) else {
         return ""
     }
-    let date = calendar.date(from: components!)
     formatter.dateFormat = "yyyy年MM月dd日"
-    return formatter.string(from: date!)
+    return formatter.string(from: date)
 }
+

@@ -8,8 +8,6 @@
 import CoreData
 import SwiftUI
 
-
-
 struct CalendarView: View {
     struct EmoLogViewModel {
         public var id: UUID?
@@ -36,19 +34,22 @@ struct CalendarView: View {
     }
     
     var body: some View {
-        NavigationView() {
+        NavigationView {
             ScrollView {
                 VStack(spacing: 10) {
-                    HStack(spacing:20) {
+                    HStack(spacing: 20) {
                         Button(action: {
-                            targetDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate)!
+                            if let newDate = Calendar.current.date(byAdding: .month, value: -1, to: targetDate) {
+                                targetDate = newDate
+                            }
                         }, label: {
                             Text("◀").foregroundColor(.black)
                         })
                         Text("\(dateFormatter.string(from: targetDate))").frame(minWidth: 200)
                         Button(action: {
-                            targetDate = Calendar.current.date(byAdding: .month, value: 1, to: targetDate)!
-                            //emoLogs = getEmoLogs()
+                            if let newDate = Calendar.current.date(byAdding: .month, value: 1, to: targetDate) {
+                                targetDate = newDate
+                            }
                         }, label: {
                             Text("▶").foregroundColor(.black)
                         })
@@ -62,42 +63,26 @@ struct CalendarView: View {
                         Text("Fri")
                         Text("Sat")
                     }.padding()
-                    LazyVGrid(columns:columns, spacing:20) {
+                    LazyVGrid(columns: columns, spacing: 20) {
                         let targetDateDateComponentsList = getTargetDateDateComponentsList(targetDate: targetDate)
-                        ForEach(targetDateDateComponentsList.indices, id:\.self){ i in
+                        ForEach(targetDateDateComponentsList.indices, id: \.self) { i in
                             if let targetDateDateComponents = targetDateDateComponentsList[i] {
                                 if let matchedLog = rawLogs.first(where: { rawLog in
-                                    let rawLogDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: rawLog.date!)
+                                    guard let rawLogDate = rawLog.date else { return false }
+                                    let rawLogDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: rawLogDate)
                                     return targetDateDateComponents.year == rawLogDateComponents.year && targetDateDateComponents.month  == rawLogDateComponents.month && targetDateDateComponents.day == rawLogDateComponents.day
                                 }) {
-                                    NavigationLink (destination: EditLogView(emoLogId: matchedLog.id!)) {
-                                        ZStack{
-                                            
-                                            if(matchedLog.scoreEnum == EmoLog.Score.unknown) {
-                                                Rectangle()
-                                                    .foregroundColor(.white)
-                                                    .aspectRatio(1, contentMode: .fit)
-                                                    .shadow(color: .gray, radius: 1)
-                                                Text("\(matchedLog.dateComponents?.day ?? 0)").foregroundColor(.gray)
-                                            } else {
-                                                let opacity =  Double(matchedLog.score ) / 5
-                                                Rectangle()
-                                                    .foregroundColor(.green).opacity(opacity)
-                                                    .aspectRatio(1, contentMode: .fit)
-                                                    .shadow(color: .gray, radius: 1)
-                                                Text("\(matchedLog.dateComponents?.day ?? 0)").foregroundColor(.gray)
-                                            }
-                                            
-                                        }
+                                    NavigationLink(destination: EditLogView(emoLogId: matchedLog.id!)) {
+                                        calendarCellView(matchedLog: matchedLog)
                                     }
                                 } else {
-                                    NavigationLink (destination: CreateLogView(targetDateComponents: targetDateDateComponents)) {
-                                        ZStack{
+                                    NavigationLink(destination: CreateLogView(targetDateComponents: targetDateDateComponents)) {
+                                        ZStack {
                                             Rectangle()
                                                 .foregroundColor(.white)
                                                 .aspectRatio(1, contentMode: .fit)
                                                 .shadow(color: .gray, radius: 1)
-                                            Text("\(targetDateDateComponentsList[i]!.day!)").foregroundColor(.gray)
+                                            Text("\(targetDateDateComponents.day ?? 0)").foregroundColor(.gray)
                                         }
                                     }
                                 }
@@ -106,13 +91,31 @@ struct CalendarView: View {
                                 Text("")
                             }
                         }
-                    }
-                    .padding()
+                    }.padding()
                     Spacer()
                 }
-                
             }
         }.navigationViewStyle(.stack)
+    }
+
+    // Helper function for calendar cell view
+    private func calendarCellView(matchedLog: EmoLog) -> some View {
+        ZStack {
+            if matchedLog.scoreEnum == EmoLog.Score.unknown {
+                Rectangle()
+                    .foregroundColor(.white)
+                    .aspectRatio(1, contentMode: .fit)
+                    .shadow(color: .gray, radius: 1)
+                Text("\(matchedLog.dateComponents?.day ?? 0)").foregroundColor(.gray)
+            } else {
+                let opacity = Double(matchedLog.score) / 5.0
+                Rectangle()
+                    .foregroundColor(.green).opacity(opacity)
+                    .aspectRatio(1, contentMode: .fit)
+                    .shadow(color: .gray, radius: 1)
+                Text("\(matchedLog.dateComponents?.day ?? 0)").foregroundColor(.gray)
+            }
+        }
     }
 }
 

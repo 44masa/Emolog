@@ -68,7 +68,7 @@ struct EditLogView: View {
                 }
                 .padding(10.0).onAppear {
                     memo = target.memo ?? ""
-                    score = target.scoreEnum!
+                    score = target.scoreEnum
                 }.onDisappear {
                     save(to: target)
                 }
