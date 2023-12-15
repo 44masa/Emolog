@@ -87,7 +87,7 @@ func getFormattedDateString(for components: DateComponents?) -> String {
           let date = calendar.date(from: components) else {
         return ""
     }
-    formatter.dateFormat = "yyyy年MM月dd日"
+    formatter.dateFormat = "MMMM d, yyyy"
     return formatter.string(from: date)
 }
 

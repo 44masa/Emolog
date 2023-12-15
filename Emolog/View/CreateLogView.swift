@@ -34,7 +34,7 @@ struct CreateLogView: View {
         ScrollView {
             VStack(alignment: .center){
                 VStack{
-                    Text("\(getFormattedDateString(for: targetDateComponents))のあなたのムード")
+                    Text("Your mood for \(getFormattedDateString(for: targetDateComponents))")
                         .font(.title2)
                         .padding(.bottom, 30)
                     EmojiPicker(score: $score, isVisible: $isEmojiPickerVisible)
@@ -45,7 +45,7 @@ struct CreateLogView: View {
                 .padding(.top, 30)
                 Divider()
                     .padding(.bottom, 30)
-                Text("メモ")
+                Text("Memo")
                     .font(.title2)
                 VStack{
                     ZStack(alignment: .topLeading) {
@@ -57,13 +57,13 @@ struct CreateLogView: View {
                             .toolbar {
                                 ToolbarItemGroup(placement: .keyboard) {
                                     Spacer()
-                                    Button("閉じる") {
-                                        isTextEditorFocused = false  
+                                    Button("Done") {
+                                        isTextEditorFocused = false
                                     }
                                 }
                             }
                         if memo.isEmpty {
-                            Text("今日はこんなことがありました...")
+                            Text("What happened today?")
                                 .foregroundColor(.gray)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 12)
