@@ -13,6 +13,7 @@ struct CreateLogView: View {
     @State private var memo = ""
     @State private var score: EmoLog.Score? = nil
     @State private var isEmojiPickerVisible = false
+    @FocusState  var isTextEditorFocused:Bool
     
     func save() {
         let log = EmoLog(context: managedObjectContext)
@@ -47,7 +48,29 @@ struct CreateLogView: View {
                 Text("メモ")
                     .font(.title2)
                 VStack{
-                    TextField("今日はこんなことがありました...", text: $memo)
+                    ZStack(alignment: .topLeading) {
+                        TextEditor(text: $memo)
+                            .focused($isTextEditorFocused)
+                            .background(Color(white: 0.95))
+                            .cornerRadius(1)
+                            .shadow(radius: 1)
+                            .toolbar {
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    Spacer()
+                                    Button("閉じる") {
+                                        isTextEditorFocused = false  
+                                    }
+                                }
+                            }
+                        if memo.isEmpty {
+                            Text("今日はこんなことがありました...")
+                                .foregroundColor(.gray)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 12)
+                                .allowsHitTesting(false)
+                        }
+                    }
+                    
                 }
                 Spacer()
             }
